@@ -10,19 +10,20 @@ prices = []
 ratings = []
 links = []
 
-def helloCallBack():
+def helloCallBack(): # Callback funtion for the button
     stuff = e1.get()
     MB.showinfo(title=None, message = 'Searching...')
     search(stuff)
     makeSpreadsheet(stuff)
 
-def findRegex(text):
+def findRegex(text): # Searches for ratings using regex
     ratingRegex = re.compile(r'\d\.\d')
     rat = ratingRegex.search(text)
     return rat.group()
 
 
-def search(text):
+def search(text): # Main function of the program
+    # Navigates to results page
     res = requests.get('http://www.amazon.com/s/keywords=' + text)
     res.raise_for_status()
 
@@ -50,7 +51,7 @@ def search(text):
         ratings.append(finalRat)
 
 
-def makeSpreadsheet(text):
+def makeSpreadsheet(text): # Creates and saves spreadsheet
     wb = openpyxl.Workbook()
     sheet = wb.get_active_sheet()
     sheet.title = text
@@ -92,6 +93,7 @@ app.grid()
 
 l1 = Label(app, text = 'Enter search term:')
 l1.grid(column=0, row=0, pady=20, padx=7)
+
 e1 = Entry(app, bd = 5)
 e1.grid(column=1, row=0, pady=20, padx=7)
 
